@@ -3,6 +3,7 @@ package br.com.zup.Cadastro.Endereco.usuario;
 import br.com.zup.Cadastro.Endereco.endereco.Endereco;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +19,16 @@ public class Usuario {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false, unique = true)
     private String cpf;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @OneToMany
     private List <Endereco> endereco;
 
