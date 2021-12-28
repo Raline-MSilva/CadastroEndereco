@@ -3,6 +3,7 @@ package br.com.zup.Cadastro.Endereco.usuario;
 import br.com.zup.Cadastro.Endereco.endereco.Endereco;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
