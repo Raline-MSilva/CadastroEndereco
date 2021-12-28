@@ -1,6 +1,7 @@
 package br.com.zup.Cadastro.Endereco.Config;
 
-import br.com.zup.Cadastro.Endereco.Excecoes.UuarioJaCadastradoException;
+import br.com.zup.Cadastro.Endereco.Excecoes.UsuarioNaoEncontradoException;
+import br.com.zup.Cadastro.Endereco.Excecoes.UsuarioJaCadastradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,9 +24,14 @@ public class ControllerAdvice {
         }
         return mensagemDeErros;
     }
-    @ExceptionHandler(UuarioJaCadastradoException.class)
+    @ExceptionHandler(UsuarioJaCadastradoException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public MensagemDeErro tratarExcecaoUsuarioJaCadastradoException(UuarioJaCadastradoException exception){
+    public MensagemDeErro tratarExcecaoUsuarioJaCadastradoException(UsuarioJaCadastradoException exception){
+        return new MensagemDeErro(exception.getMessage());
+    }
+    @ExceptionHandler(UsuarioNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemDeErro tratarExcecaoUsuarioNaoEncontradoException(UsuarioNaoEncontradoException exception){
         return new MensagemDeErro(exception.getMessage());
     }
 
