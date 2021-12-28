@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class EnderecoService {
     @Autowired
@@ -22,8 +23,10 @@ public class EnderecoService {
         usuario.getEndereco().add(endereco);
         return enderecoRepository.save(endereco);
     }
-    public List<Endereco> exibir (){
+
+    public List<Endereco> exibir() {
         List<Endereco> enderecos = (List<Endereco>) enderecoRepository.findAll();
         return enderecos;
     }
+
 }
