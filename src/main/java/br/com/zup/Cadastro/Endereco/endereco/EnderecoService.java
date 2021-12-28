@@ -14,12 +14,14 @@ public class EnderecoService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public Endereco salvar(Endereco endereco) {
-        usuarioService.buscarUsuarioPorId(endereco.getUsuario().getId());
+    public Endereco salvar(Endereco endereco, Integer usuarioId) {
+        Usuario usuario = usuarioService.buscarUsuarioPorId(usuarioId);
+        endereco.setUsuario(usuario);
+        usuario.getEndereco().add(endereco);
         return enderecoRepository.save(endereco);
     }
 
-    public EnderecoSaidaDTO converterDto(Endereco endereco) {
+    /*public EnderecoSaidaDTO converterDto(Endereco endereco) {
         EnderecoSaidaDTO enderecoSaidaDTODTO = new EnderecoSaidaDTO();
         enderecoSaidaDTODTO.setCep(endereco.getCep());
         enderecoSaidaDTODTO.setLogradouro(endereco.getLogradouro());
@@ -46,6 +48,8 @@ public class EnderecoService {
         endereco.setUsuario(usuario);
         return endereco;
     }
+
+     */
 
 
 }
