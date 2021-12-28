@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class EnderecoExibirDTO {
+    private int id;
     private String cep;
     private String logradouro;
     private int numero;
