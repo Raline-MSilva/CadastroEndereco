@@ -22,7 +22,9 @@ public class EnderecoController {
     @PostMapping
     @ResponseStatus (HttpStatus.CREATED)
     public EnderecoSaidaDTO cadastrar (@RequestBody EnderecoEntradaDTO enderecoEntradaDTO){
-        Endereco endereco = enderecoService.converterEntity(enderecoEntradaDTO);
-        return enderecoService.converterDto(enderecoService.salvar(endereco));
+        Integer usuarioId = enderecoEntradaDTO.getUsuarioDTO().getId();
+        Endereco endereco = modelMapper.map(enderecoEntradaDTO, Endereco.class);
+        return modelMapper.map(enderecoService.salvar(endereco, usuarioId),
+                EnderecoSaidaDTO.class);
     }
 }
