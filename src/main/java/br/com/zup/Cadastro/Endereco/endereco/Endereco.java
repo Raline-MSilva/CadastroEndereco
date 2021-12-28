@@ -25,6 +25,6 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String estado;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Usuario usuario;
 }
