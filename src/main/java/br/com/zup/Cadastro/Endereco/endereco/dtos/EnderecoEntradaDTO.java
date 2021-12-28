@@ -1,5 +1,8 @@
 package br.com.zup.Cadastro.Endereco.endereco.dtos;
 
+import br.com.zup.Cadastro.Endereco.usuario.Usuario;
+import br.com.zup.Cadastro.Endereco.usuario.dtos.UsuarioEntradaDTO;
+import br.com.zup.Cadastro.Endereco.usuario.dtos.UsuarioIdEntradaDTO;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -20,5 +23,5 @@ public class EnderecoEntradaDTO {
     @NotBlank
     private String estado;
     @NotBlank
-    private int usuarioId;
+    private UsuarioIdEntradaDTO usuarioDTO;
 }
