@@ -30,7 +30,7 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List <Endereco> endereco;
 
 }
