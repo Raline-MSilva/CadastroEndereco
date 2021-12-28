@@ -1,6 +1,7 @@
 package br.com.zup.Cadastro.Endereco.usuario;
 
 import br.com.zup.Cadastro.Endereco.usuario.dtos.UsuarioEntradaDTO;
+import br.com.zup.Cadastro.Endereco.usuario.dtos.UsuarioSaidaDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioEntradaDTO cadastrar (@RequestBody @Valid UsuarioEntradaDTO usuarioEntradaDTO){
+    public UsuarioSaidaDTO cadastrar (@RequestBody @Valid UsuarioEntradaDTO usuarioEntradaDTO){
         Usuario usuario = modelMapper.map(usuarioEntradaDTO, Usuario.class);
-        return modelMapper.map(usuarioService.salvar(usuario), UsuarioEntradaDTO.class);
+        return modelMapper.map(usuarioService.salvar(usuario), UsuarioSaidaDTO.class);
     }
 }
