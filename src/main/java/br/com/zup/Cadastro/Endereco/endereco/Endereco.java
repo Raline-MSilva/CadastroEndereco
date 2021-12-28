@@ -3,6 +3,7 @@ package br.com.zup.Cadastro.Endereco.endereco;
 import br.com.zup.Cadastro.Endereco.usuario.Usuario;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,5 +25,6 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String estado;
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Usuario usuario;
 }
