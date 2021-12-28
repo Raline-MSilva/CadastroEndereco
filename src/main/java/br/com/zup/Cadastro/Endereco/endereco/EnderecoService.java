@@ -7,6 +7,8 @@ import br.com.zup.Cadastro.Endereco.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EnderecoService {
     @Autowired
@@ -20,36 +22,8 @@ public class EnderecoService {
         usuario.getEndereco().add(endereco);
         return enderecoRepository.save(endereco);
     }
-
-    /*public EnderecoSaidaDTO converterDto(Endereco endereco) {
-        EnderecoSaidaDTO enderecoSaidaDTODTO = new EnderecoSaidaDTO();
-        enderecoSaidaDTODTO.setCep(endereco.getCep());
-        enderecoSaidaDTODTO.setLogradouro(endereco.getLogradouro());
-        enderecoSaidaDTODTO.setNumero(endereco.getNumero());
-        enderecoSaidaDTODTO.setComplemento(endereco.getComplemento());
-        enderecoSaidaDTODTO.setBairro(endereco.getBairro());
-        enderecoSaidaDTODTO.setCidade(endereco.getCidade());
-        enderecoSaidaDTODTO.setEstado(endereco.getEstado());
-        Usuario usuario = usuarioService.buscarUsuarioPorId(endereco.getUsuario().getId());
-        enderecoSaidaDTODTO.setUsuario(usuarioService.converterUsuarioDto(usuario));
-        return enderecoSaidaDTODTO;
+    public List<Endereco> exibir (){
+        List<Endereco> enderecos = (List<Endereco>) enderecoRepository.findAll();
+        return enderecos;
     }
-
-    public Endereco converterEntity(EnderecoEntradaDTO enderecoEntradaDTO) {
-        Endereco endereco = new Endereco();
-        endereco.setCep(enderecoEntradaDTO.getCep());
-        endereco.setLogradouro(enderecoEntradaDTO.getLogradouro());
-        endereco.setNumero(enderecoEntradaDTO.getNumero());
-        endereco.setComplemento(enderecoEntradaDTO.getComplemento());
-        endereco.setBairro(enderecoEntradaDTO.getBairro());
-        endereco.setCidade(enderecoEntradaDTO.getCidade());
-        endereco.setEstado(enderecoEntradaDTO.getEstado());
-        Usuario usuario = usuarioService.buscarUsuarioPorId(enderecoEntradaDTO.getUsuarioId());
-        endereco.setUsuario(usuario);
-        return endereco;
-    }
-
-     */
-
-
 }
