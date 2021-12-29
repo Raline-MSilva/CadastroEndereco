@@ -3,6 +3,7 @@ package br.com.zup.Cadastro.Endereco.usuario;
 import br.com.zup.Cadastro.Endereco.componentes.Conversor;
 import br.com.zup.Cadastro.Endereco.usuario.dtos.UsuarioEntradaDTO;
 import br.com.zup.Cadastro.Endereco.usuario.dtos.UsuarioSaidaDTO;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Arrays;
+import java.util.List;
 
 @WebMvcTest({UsuarioController.class, Conversor.class})
 public class UsuarioControllerTest {
@@ -57,6 +61,18 @@ public class UsuarioControllerTest {
         String jsonResposta = resultado.andReturn().getResponse().getContentAsString();
         var resposta = objectMapper.readValue(jsonResposta, UsuarioSaidaDTO.class);
         Mockito.verify(usuarioService,Mockito.times(1)).salvar(Mockito.any(Usuario.class));
+    }
+
+    @Test
+    public void testarExibirUsuarios() throws Exception{
+        Mockito.when(usuarioService.exibir()).thenReturn(Arrays.asList(usuario));
+        String json = objectMapper.writeValueAsString(usuarioSaidaDTO);
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/usuarios")
+                .content(json).contentType(MediaType.APPLICATION_JSON))
+                .andExpect((MockMvcResultMatchers.status().is(200)));
+        String resposta = resultActions.andReturn().getResponse().getContentAsString();
+        List<UsuarioSaidaDTO> usuario = objectMapper.readValue(resposta, new TypeReference<List<UsuarioSaidaDTO>>() {
+        });
     }
 
 }
