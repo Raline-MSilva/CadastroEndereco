@@ -36,4 +36,11 @@ public class UsuarioService {
         List<Usuario> usuarios = (List<Usuario>) usuarioRepository.findAll();
         return usuarios;
     }
+
+    public void deletar(int id) {
+        if (!usuarioRepository.existsById(id)) {
+            throw new UsuarioNaoEncontradoException("Usuario não encontrado");
+        }
+        usuarioRepository.deleteById(id);
+    }
 }
