@@ -1,6 +1,7 @@
 package br.com.zup.Cadastro.Endereco.usuario;
 
 import br.com.zup.Cadastro.Endereco.Excecoes.UsuarioJaCadastradoException;
+import br.com.zup.Cadastro.Endereco.Excecoes.UsuarioNaoEncontradoException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,4 +66,12 @@ public class UsuarioServiceTest {
                 });
         Assertions.assertEquals("usuario ja cadastrado", exception.getMessage());
     }
+
+    @Test
+    public void testarDeletarusuarioCaminhoPositivo(){
+        Mockito.when(usuarioRepository.existsById(usuario.getId())).thenReturn(true);
+        usuarioService.deletar(usuario.getId());
+        Mockito.verify(usuarioRepository, Mockito.times(1)).deleteById(usuario.getId());
+    }
+
 }
