@@ -74,4 +74,14 @@ public class UsuarioServiceTest {
         Mockito.verify(usuarioRepository, Mockito.times(1)).deleteById(usuario.getId());
     }
 
+    @Test
+    public void testarDeletarUsuarioCaminhoNegativo(){
+        Mockito.doNothing().when(usuarioRepository).deleteById(usuario.getId());
+        UsuarioNaoEncontradoException exception = Assertions.assertThrows(UsuarioNaoEncontradoException.class,
+                () -> {
+                    usuarioService.deletar(usuario.getId());
+                });
+        Assertions.assertEquals("Usuario não encontrado", exception.getMessage());
+    }
+
 }
