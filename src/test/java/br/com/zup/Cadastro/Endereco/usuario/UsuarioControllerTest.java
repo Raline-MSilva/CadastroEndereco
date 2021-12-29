@@ -56,7 +56,7 @@ public class UsuarioControllerTest {
 
         String jsonResposta = resultado.andReturn().getResponse().getContentAsString();
         var resposta = objectMapper.readValue(jsonResposta, UsuarioSaidaDTO.class);
+        Mockito.verify(usuarioService,Mockito.times(1)).salvar(Mockito.any(Usuario.class));
     }
-
 
 }
