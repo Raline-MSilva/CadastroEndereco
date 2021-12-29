@@ -45,14 +45,14 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    public void testarCadastrarUsuarioCaminhoNegativo() {
+    public void testarCadastrarUsuarioCaminhoNegativoPorEmailRepetido() {
         Mockito.when(usuarioRepository.save(Mockito.any(Usuario.class))).thenReturn(usuario);
         Mockito.when(usuarioRepository.existsByEmail(usuario.getEmail())).thenReturn(true);
-        Mockito.when(usuarioRepository.existsByCpf(usuario.getCpf())).thenReturn(true);
         UsuarioJaCadastradoException exception = Assertions.assertThrows(UsuarioJaCadastradoException.class,
                 () -> {
                     usuarioService.salvar(usuario);
                 });
         Assertions.assertEquals("usuario ja cadastrado", exception.getMessage());
     }
+
 }
