@@ -1,5 +1,7 @@
 package br.com.zup.Cadastro.Endereco.usuario;
 
+import br.com.zup.Cadastro.Endereco.Excecoes.UsuarioJaCadastradoException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,7 +24,7 @@ public class UsuarioServiceTest {
     List<Usuario> usuarios;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         usuario = new Usuario();
         usuario.setNome("Maria");
         usuario.setCpf("094.408.150-94");
@@ -32,7 +34,7 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    public void testarCadastrarUsuario(){
+    public void testarCadastrarUsuario() {
         Mockito.when(usuarioRepository.save(Mockito.any(Usuario.class))).thenReturn(usuario);
         Mockito.when(usuarioRepository.existsByEmail(usuario.getEmail())).thenReturn(false);
         Mockito.when(usuarioRepository.existsByCpf(usuario.getCpf())).thenReturn(false);
@@ -40,5 +42,17 @@ public class UsuarioServiceTest {
         Mockito.verify(usuarioRepository, Mockito.times(1)).save(Mockito.any(Usuario.class));
         Mockito.verify(usuarioRepository, Mockito.times(1)).existsByEmail(usuario.getEmail());
         Mockito.verify(usuarioRepository, Mockito.times(1)).existsByCpf(usuario.getCpf());
+    }
+
+    @Test
+    public void testarCadastrarUsuarioCaminhoNegativo() {
+        Mockito.when(usuarioRepository.save(Mockito.any(Usuario.class))).thenReturn(usuario);
+        Mockito.when(usuarioRepository.existsByEmail(usuario.getEmail())).thenReturn(true);
+        Mockito.when(usuarioRepository.existsByCpf(usuario.getCpf())).thenReturn(true);
+        UsuarioJaCadastradoException exception = Assertions.assertThrows(UsuarioJaCadastradoException.class,
+                () -> {
+                    usuarioService.salvar(usuario);
+                });
+        Assertions.assertEquals("usuario ja cadastrado", exception.getMessage());
     }
 }
