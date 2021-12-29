@@ -55,4 +55,14 @@ public class UsuarioServiceTest {
         Assertions.assertEquals("usuario ja cadastrado", exception.getMessage());
     }
 
+    @Test
+    public void testarCadastrarUsuarioCaminhoNegativoPorCpfRepetido(){
+        Mockito.when(usuarioRepository.save(Mockito.any(Usuario.class))).thenReturn(usuario);
+        Mockito.when(usuarioRepository.existsByCpf(usuario.getCpf())).thenReturn(true);
+        UsuarioJaCadastradoException exception = Assertions.assertThrows(UsuarioJaCadastradoException.class,
+                () -> {
+                    usuarioService.salvar(usuario);
+                });
+        Assertions.assertEquals("usuario ja cadastrado", exception.getMessage());
+    }
 }
